@@ -242,7 +242,10 @@ public static class Utilidades
     {
         MostrarLineaDivisora(true, true);
         Console.WriteLine("Presione cualquier tecla para continuar...");
-        Console.ReadKey();
+        if (Console.IsInputRedirected)
+            Console.ReadLine();
+        else
+            Console.ReadKey();
     }
 
     #endregion
@@ -291,8 +294,7 @@ public static class Utilidades
     /// </summary>
     public static string GuardarResultadoEnArchivo(string nombreEstadoFinanciero, string contenido)
     {
-        string baseDir = AppContext.BaseDirectory;
-        string carpetaResultados = Path.Combine(baseDir, "Resultados");
+        string carpetaResultados = @"C:\Resultados-Proyecto-POO";
         Directory.CreateDirectory(carpetaResultados);
         string ruta = Path.Combine(carpetaResultados, $"{nombreEstadoFinanciero}.txt");
         File.WriteAllText(ruta, contenido);
